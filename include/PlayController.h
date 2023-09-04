@@ -11,17 +11,21 @@
 class PlayController : public QObject {
 Q_OBJECT
 private:
-    Demuxer demuxer;
-    MediaInfo mediaInfo;
-    PktQueue videoPktQueue;
-    PktQueue audioPktQueue;
-    PktQueue videoFrameQueue;
-    PktQueue audioFrameQueue;
+    AVFormatContext *fmtCtx;
+    Demuxer *demuxer;
+    MediaInfo *mediaInfo;
+    PktQueue *videoPktQueue;
+    PktQueue *audioPktQueue;
+    PktQueue *videoFrameQueue;
+    PktQueue *audioFrameQueue;
 
 public:
-    explicit PlayController(QWidget *parent);
+    explicit PlayController(QObject *parent);
+
+    ~PlayController() override;
 
 public slots:
+
     void startPlay(const QString &filePath);
 
 };

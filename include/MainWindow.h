@@ -6,10 +6,7 @@
 #define MYPLAYER_MAINWINDOW_H
 
 #include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include "EventHandler.h"
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
@@ -17,12 +14,14 @@ Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-    ~MainWindow();
+    ~MainWindow() override;
 
-
+private:
+    void initSlots();
 
 private:
     Ui::MainWindow *ui;
+    EventHandler *eventHandler;
 };
 
 #endif //MYPLAYER_MAINWINDOW_H

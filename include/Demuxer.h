@@ -11,9 +11,7 @@
 
 class Demuxer : public QThread {
 public:
-    Demuxer();
-
-    MediaInfo *getMediaInfo();
+    Demuxer(AVFormatContext *ctx, MediaInfo *info);
 
     void run() override;
 
@@ -21,7 +19,7 @@ public:
 
 private:
     Parser *parser;
-    MediaInfo info;
+    MediaInfo *mediaInfo;
     AVFormatContext *fmtCtx;
     PktQueue videoQueue;
     PktQueue audioQueue;

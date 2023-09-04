@@ -4,6 +4,15 @@
 
 #include "PlayController.h"
 
-void PlayController::startPlay(const QString &filePath) {
+PlayController::PlayController(QObject *parent)
+{
+}
 
+PlayController::~PlayController()
+{
+
+}
+
+void PlayController::startPlay(const QString &filePath) {
+    
 }

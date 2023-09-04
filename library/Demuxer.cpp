@@ -3,3 +3,19 @@
 //
 
 #include "Demuxer.h"
+
+Demuxer::Demuxer(AVFormatContext *ctx, MediaInfo *info)
+        : fmtCtx(ctx), mediaInfo(info)
+{
+
+}
+
+void Demuxer::run()
+{
+
+}
+
+void Demuxer::demux()
+{
+
+}

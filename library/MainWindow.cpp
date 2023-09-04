@@ -3,12 +3,21 @@
 //
 
 #include "MainWindow.h"
-#include "../ui/ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent)
+        : QMainWindow(parent), ui(new Ui::MainWindow)
+{
     ui->setupUi(this);
+    eventHandler = new EventHandler(ui, this);
+    initSlots();
 }
 
-MainWindow::~MainWindow() {
+MainWindow::~MainWindow()
+{
     delete ui;
+}
+
+void MainWindow::initSlots()
+{
+    connect(ui->btnOpenLocal, SIGNAL(clicked(bool)), eventHandler, SLOT(play()));
 }

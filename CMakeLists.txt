@@ -26,7 +26,7 @@ find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 include_directories( include
         open_source/ffmpeg/include
         open_source/sdl2/include
-        ./)
+        ui)
 
 file(GLOB_RECURSE HEADER include/*.h)
 file(GLOB_RECURSE LIB library/*.cpp)
