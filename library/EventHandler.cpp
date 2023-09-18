@@ -2,6 +2,7 @@
 // Created by LiuWeihao on 2023/9/4.
 //
 
+#include <QFileDialog>
 #include "EventHandler.h"
 
 EventHandler::EventHandler(Ui::MainWindow *ui, QWidget *parent)
@@ -13,7 +14,11 @@ EventHandler::EventHandler(Ui::MainWindow *ui, QWidget *parent)
 
 void EventHandler::play()
 {
-    QString filePath = ui->btnOpenUrl->text();
+    const QString filePath = QFileDialog::getOpenFileName(parent, "open file", "D:/");
+    if (filePath.isEmpty()) {
+        return;
+    }
+    ui->lineEdit->setText(filePath);
     playController->startPlay(filePath);
 }
 

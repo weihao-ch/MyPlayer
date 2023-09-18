@@ -6,7 +6,10 @@
 #define MEDIAPLAYER_PKTQUEUE_H
 
 #include <QQueue>
+
+extern "C" {
 #include "libavformat/avformat.h"
+}
 
 class PktQueue {
 public:

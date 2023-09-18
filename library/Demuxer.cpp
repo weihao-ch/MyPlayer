@@ -4,8 +4,8 @@
 
 #include "Demuxer.h"
 
-Demuxer::Demuxer(AVFormatContext *ctx, MediaInfo *info)
-        : fmtCtx(ctx), mediaInfo(info)
+Demuxer::Demuxer(AVFormatContext *ctx, MediaInfo *info, PktQueue *vQueue, PktQueue *aQueue)
+        : fmtCtx(ctx), mediaInfo(info), videoQueue(vQueue), audioQueue(aQueue)
 {
 
 }

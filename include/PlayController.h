@@ -12,6 +12,10 @@ class PlayController : public QObject {
 Q_OBJECT
 private:
     AVFormatContext *fmtCtx;
+    AVCodecContext *videoDecCtx;
+    AVCodecContext *audioDecCtx;
+
+    Parser *parser;
     Demuxer *demuxer;
     MediaInfo *mediaInfo;
     PktQueue *videoPktQueue;

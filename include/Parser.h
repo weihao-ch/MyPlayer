@@ -8,18 +8,26 @@
 #include <QString>
 #include <QTime>
 #include "MediaInfo.h"
-#include "libavformat/avformat.h"
 
+extern "C" {
+#include "libavformat/avformat.h"
+#include "libavcodec/avcodec.h"
+}
 
 class Parser {
 public:
-    Parser(const QString &filePath, AVFormatContext *ctx);
+    explicit Parser(AVFormatContext *ctx, MediaInfo *info, AVCodecContext *videoDecCtx, AVCodecContext *audioDecCtx);
 
-    MediaInfo parse();
+    void parse(const QString &filePath);
 
 private:
-    QString filePath;
+    int openCodecContext(AVCodecContext **decCtx, enum AVMediaType type);
+
+private:
+    MediaInfo *mediaInfo;
     AVFormatContext *fmtCtx;
+    AVCodecContext *videoDecCtx;
+    AVCodecContext *audioDecCtx;
 
 };
 

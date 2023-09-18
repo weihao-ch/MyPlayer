@@ -3,6 +3,8 @@
 //
 
 #include "MainWindow.h"
+// 不能删，有这个头文件才会触发UIC
+#include "../ui/ui_MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -15,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete eventHandler;
 }
 
 void MainWindow::initSlots()
