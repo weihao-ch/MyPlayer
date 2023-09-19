@@ -6,22 +6,11 @@
 #define MYPLAYER_PLAYCONTROLLER_H
 
 #include "Demuxer.h"
-#include "PktQueue.h"
+#include "Queue.h"
+#include "Decoder.h"
 
 class PlayController : public QObject {
 Q_OBJECT
-private:
-    AVFormatContext *fmtCtx;
-    AVCodecContext *videoDecCtx;
-    AVCodecContext *audioDecCtx;
-
-    Parser *parser;
-    Demuxer *demuxer;
-    MediaInfo *mediaInfo;
-    PktQueue *videoPktQueue;
-    PktQueue *audioPktQueue;
-    PktQueue *videoFrameQueue;
-    PktQueue *audioFrameQueue;
 
 public:
     explicit PlayController(QObject *parent);
@@ -31,6 +20,19 @@ public:
 public slots:
 
     void startPlay(const QString &filePath);
+
+private:
+    AVFormatContext *fmtCtx;
+    AVCodecContext *videoDecCtx;
+    AVCodecContext *audioDecCtx;
+
+    MediaParser *parser;
+    Demuxer *demuxer;
+    Decoder *decoder;
+    MediaInfo *mediaInfo;
+    Queue<AVPacket> *pktQueue;
+    Queue<AVFrame> *videoFrameQueue;
+    Queue<AVFrame> *audioFrameQueue;
 
 };
 

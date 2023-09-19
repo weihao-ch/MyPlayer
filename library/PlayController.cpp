@@ -8,10 +8,15 @@ PlayController::PlayController(QObject *parent)
 {
     mediaInfo = new MediaInfo();
     fmtCtx = avformat_alloc_context();
-    videoFrameQueue = new PktQueue();
-    audioFrameQueue = new PktQueue();
-    parser = new Parser(fmtCtx, mediaInfo, videoDecCtx, audioDecCtx);
-    demuxer = new Demuxer(fmtCtx, mediaInfo, videoPktQueue, audioPktQueue);
+    pktQueue = new Queue<AVPacket>();
+    videoFrameQueue = new Queue<AVFrame>();
+    audioFrameQueue = new Queue<AVFrame>();
+
+    parser = new MediaParser(fmtCtx, mediaInfo, videoDecCtx, audioDecCtx);
+    demuxer = new Demuxer(fmtCtx, mediaInfo, pktQueue);
+    decoder = new Decoder(videoDecCtx,
+                          audioDecCtx, mediaInfo, pktQueue,
+                          videoFrameQueue, audioFrameQueue);
 }
 
 PlayController::~PlayController()
@@ -26,4 +31,5 @@ void PlayController::startPlay(const QString &filePath)
 {
     parser->parse(filePath);
     demuxer->demux();
+    decoder->decode();
 }

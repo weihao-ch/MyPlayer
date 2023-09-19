@@ -2,16 +2,16 @@
 // Created by 13918 on 2023/9/3.
 //
 
-#ifndef MEDIAPLAYER_DEMUXER_H
-#define MEDIAPLAYER_DEMUXER_H
+#ifndef MYPLAYER_DEMUXER_H
+#define MYPLAYER_DEMUXER_H
 
 #include <QThread>
-#include "PktQueue.h"
-#include "Parser.h"
+#include "Queue.h"
+#include "MediaParser.h"
 
 class Demuxer : public QThread {
 public:
-    Demuxer(AVFormatContext *ctx, MediaInfo *info, PktQueue *vQueue, PktQueue *aQueue);
+    Demuxer(AVFormatContext *ctx, MediaInfo *info, Queue<AVPacket> *pktQueue);
 
     void run() override;
 
@@ -20,9 +20,9 @@ public:
 private:
     MediaInfo *mediaInfo;
     AVFormatContext *fmtCtx;
-    PktQueue *videoQueue;
-    PktQueue *audioQueue;
+    AVPacket *pkt;
+    Queue<AVPacket> *pktQueue;
 };
 
 
-#endif //MEDIAPLAYER_DEMUXER_H
+#endif //MYPLAYER_DEMUXER_H

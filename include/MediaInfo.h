@@ -2,8 +2,8 @@
 // Created by 13918 on 2023/9/3.
 //
 
-#ifndef MEDIAPLAYER_MEDIAINFO_H
-#define MEDIAPLAYER_MEDIAINFO_H
+#ifndef MYPLAYER_MEDIAINFO_H
+#define MYPLAYER_MEDIAINFO_H
 
 #include <QString>
 #include <QTime>
@@ -37,4 +37,4 @@ private:
 };
 
 
-#endif //MEDIAPLAYER_MEDIAINFO_H
+#endif //MYPLAYER_MEDIAINFO_H

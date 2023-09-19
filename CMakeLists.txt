@@ -26,19 +26,25 @@ find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 include_directories(include
         open_source/ffmpeg/include
         open_source/sdl2/include
-        ui)
+        ui
+        open_source/googletest/googletest/include
+        test/include)
 
 file(GLOB_RECURSE HEADER include/*.h)
 file(GLOB_RECURSE LIB library/*.cpp)
+file(GLOB_RECURSE TEST test/suite/*.cpp)
 
 link_directories(open_source/ffmpeg/lib
         open_source/sdl2/lib)
 
-add_executable(${PROJECT_NAME} main.cpp ${LIB} ${HEADER} ui/MainWindow.ui)
+add_subdirectory(open_source/googletest)
+
+add_executable(${PROJECT_NAME} main.cpp ${LIB} ${HEADER} ui/MainWindow.ui ${TEST})
 
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 target_link_libraries(${PROJECT_NAME} avcodec avdevice avfilter avformat avutil swresample swscale)
 target_link_libraries(${PROJECT_NAME} SDL2)
+target_link_libraries(${PROJECT_NAME} gtest)
 
 if (WIN32)
     set(DEBUG_SUFFIX)
