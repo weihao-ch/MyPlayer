@@ -6,28 +6,27 @@
 #define MYPLAYER_MEDIAPARSER_H
 
 #include <QString>
-#include <QTime>
 #include "MediaInfo.h"
+#include "State.h"
 
-extern "C" {
-#include "libavformat/avformat.h"
-#include "libavcodec/avcodec.h"
-}
+class MediaParser : public QObject {
+Q_OBJECT
 
-class MediaParser {
 public:
-    explicit MediaParser(AVFormatContext *ctx, MediaInfo *info, AVCodecContext *videoDecCtx, AVCodecContext *audioDecCtx);
+    explicit MediaParser(State *state, MediaInfo *info);
 
     void parse(const QString &filePath);
 
 private:
     int openCodecContext(AVCodecContext **decCtx, enum AVMediaType type);
 
+signals:
+
+    void startThraed();
+
 private:
     MediaInfo *mediaInfo;
-    AVFormatContext *fmtCtx;
-    AVCodecContext *videoDecCtx;
-    AVCodecContext *audioDecCtx;
+    State *state;
 
 };
 

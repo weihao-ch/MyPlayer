@@ -8,17 +8,23 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <functional>
 
-template<typename T, size_t size = 50>
+template<typename T, size_t size = 20>
 class Queue {
 public:
-    void push(const T *data);
+    explicit Queue(std::function<void(T *)> unrefFunc = [](T *) {});
+
+    ~Queue();
+
+    void push(T data);
 
     T pop();
 
     void clear();
 
 private:
+    std::function<void(T *)> unref;
     std::queue<T> queue;
     std::mutex mutex;
     std::condition_variable empty;
@@ -26,11 +32,23 @@ private:
 };
 
 template<typename T, size_t size>
-void Queue<T, size>::push(const T *data)
+Queue<T, size>::Queue(std::function<void(T *)> unrefFunc)
+{
+    unref = std::move(unrefFunc);
+}
+
+template<typename T, size_t size>
+Queue<T, size>::~Queue()
+{
+    clear();
+}
+
+template<typename T, size_t size>
+void Queue<T, size>::push(T data)
 {
     std::unique_lock<std::mutex> lk(mutex);
     full.wait(lk, [&] { return queue.size() < size; });
-    queue.push(*data);
+    queue.push(data);
     empty.notify_all();
 }
 
@@ -39,7 +57,7 @@ T Queue<T, size>::pop()
 {
     std::unique_lock<std::mutex> lk(mutex);
     empty.wait(lk, [&] { return !queue.empty(); });
-    T&& data = std::move(queue.front());
+    T data = queue.front();
     queue.pop();
     full.notify_all();
     return data;
@@ -49,8 +67,11 @@ template<typename T, size_t size>
 void Queue<T, size>::clear()
 {
     std::unique_lock<std::mutex> lk(mutex);
-    std::queue<T> emptyQueue;
-    std::swap(queue, emptyQueue);
+    while (!queue.empty()) {
+        T data = queue.front();
+        queue.pop();
+        unref(&data);
+    }
 }
 
 #endif //MYPLAYER_QUEUE_H

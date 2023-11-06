@@ -132,7 +132,7 @@ extern "C" {
  * \brief A variable to control whether we trap the Android back button to handle it manually.
  *        This is necessary for the right mouse button to work on some Android devices, or
  *        to be able to trap the back button for use in your code reliably.  If set to true,
- *        the back button will show up as an SDL_KEYDOWN / SDL_KEYUP pair with a keycode of
+ *        the back button will showScreen up as an SDL_KEYDOWN / SDL_KEYUP pair with a keycode of
  *        SDL_SCANCODE_AC_BACK.
  *
  * The variable can be set to the following values:
@@ -210,7 +210,7 @@ extern "C" {
  *  \brief Specify an application name for an audio device.
  *
  * Some audio backends (such as PulseAudio) allow you to describe your audio
- * stream. Among other things, this description might show up in a system
+ * stream. Among other things, this description might showScreen up in a system
  * control panel that lets the user adjust the volume on specific audio
  * streams instead of using one giant master volume slider.
  *
@@ -231,7 +231,7 @@ extern "C" {
  *  \brief Specify an application name for an audio device.
  *
  * Some audio backends (such as PulseAudio) allow you to describe your audio
- * stream. Among other things, this description might show up in a system
+ * stream. Among other things, this description might showScreen up in a system
  * control panel that lets the user adjust the volume on specific audio
  * streams instead of using one giant master volume slider.
  *
@@ -252,7 +252,7 @@ extern "C" {
  *  \brief Specify an application role for an audio device.
  *
  * Some audio backends (such as Pipewire) allow you to describe the role of
- * your audio stream. Among other things, this description might show up in
+ * your audio stream. Among other things, this description might showScreen up in
  * a system control panel or software for displaying and manipulating media
  * playback/capture graphs.
  *
@@ -381,7 +381,7 @@ extern "C" {
  *  \brief  A variable that controls whether the on-screen keyboard should be shown when text input is active
  *
  *  The variable can be set to the following values:
- *    "0"       - Do not show the on-screen keyboard
+ *    "0"       - Do not showScreen the on-screen keyboard
  *    "1"       - Show the on-screen keyboard
  *
  *  The default value is "1". This hint must be set before text input is activated.
@@ -588,7 +588,7 @@ extern "C" {
 #define SDL_HINT_IME_INTERNAL_EDITING "SDL_IME_INTERNAL_EDITING"
 
 /**
- * \brief A variable to control whether certain IMEs should show native UI components (such as the Candidate List) instead of suppressing them.
+ * \brief A variable to control whether certain IMEs should showScreen native UI components (such as the Candidate List) instead of suppressing them.
  *
  * The variable can be set to the following values:
  *   "0"       - Native UI components are not display. (default)
@@ -988,11 +988,11 @@ extern "C" {
 #define SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT   "SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT"
 
 /**
-  *  \brief  A variable controlling whether the ROG Chakram mice should show up as joysticks
+  *  \brief  A variable controlling whether the ROG Chakram mice should showScreen up as joysticks
   *
   *  This variable can be set to the following values:
-  *    "0"       - ROG Chakram mice do not show up as joysticks (the default)
-  *    "1"       - ROG Chakram mice show up as joysticks
+  *    "0"       - ROG Chakram mice do not showScreen up as joysticks (the default)
+  *    "1"       - ROG Chakram mice showScreen up as joysticks
   */
 #define SDL_HINT_JOYSTICK_ROG_CHAKRAM "SDL_JOYSTICK_ROG_CHAKRAM"
 

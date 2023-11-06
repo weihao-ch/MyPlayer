@@ -5,15 +5,17 @@
 #ifndef MYPLAYER_PLAYCONTROLLER_H
 #define MYPLAYER_PLAYCONTROLLER_H
 
+#include "State.h"
+#include "MediaParser.h"
 #include "Demuxer.h"
-#include "Queue.h"
 #include "Decoder.h"
+#include "Renderer.h"
 
 class PlayController : public QObject {
 Q_OBJECT
 
 public:
-    explicit PlayController(QObject *parent);
+    explicit PlayController(QWidget *parent);
 
     ~PlayController() override;
 
@@ -22,18 +24,16 @@ public slots:
     void startPlay(const QString &filePath);
 
 private:
-    AVFormatContext *fmtCtx;
-    AVCodecContext *videoDecCtx;
-    AVCodecContext *audioDecCtx;
+    void initSlots();
 
+private:
+    QWidget *parent;
+    MediaInfo *mediaInfo;
     MediaParser *parser;
     Demuxer *demuxer;
     Decoder *decoder;
-    MediaInfo *mediaInfo;
-    Queue<AVPacket> *pktQueue;
-    Queue<AVFrame> *videoFrameQueue;
-    Queue<AVFrame> *audioFrameQueue;
-
+    Renderer *renderer;
+    State *state;
 };
 
 

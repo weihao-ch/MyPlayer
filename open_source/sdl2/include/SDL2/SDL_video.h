@@ -1190,7 +1190,7 @@ extern DECLSPEC void SDLCALL SDL_SetWindowAlwaysOnTop(SDL_Window * window,
 /**
  * Show a window.
  *
- * \param window the window to show
+ * \param window the window to showScreen
  *
  * \since This function is available since SDL 2.0.0.
  *

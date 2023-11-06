@@ -199,7 +199,7 @@ typedef SDL_AssertState (SDLCALL *SDL_AssertionHandler)(
 /**
  * Set an application-defined assertion handler.
  *
- * This function allows an application to show its own assertion UI and/or
+ * This function allows an application to showScreen its own assertion UI and/or
  * force the response to an assertion failure. If the application doesn't
  * provide this, SDL will try to do the right thing, popping up a
  * system-specific GUI dialog, and probably minimizing any fullscreen windows.

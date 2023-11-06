@@ -8,13 +8,14 @@
 EventHandler::EventHandler(Ui::MainWindow *ui, QWidget *parent)
         : ui(ui), parent(parent)
 {
-    playController = new PlayController(this);
+    playController = new PlayController(parent);
     initSlots();
 }
 
 void EventHandler::play()
 {
-    const QString filePath = QFileDialog::getOpenFileName(parent, "open file", "D:/");
+//    const QString filePath = QFileDialog::getOpenFileName(parent, "open file", "D:/");
+    const QString filePath = "E:\\IDMDownload\\Video\\测试视频\\trailer.mp4";
     if (filePath.isEmpty()) {
         return;
     }

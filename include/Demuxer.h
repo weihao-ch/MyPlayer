@@ -6,22 +6,24 @@
 #define MYPLAYER_DEMUXER_H
 
 #include <QThread>
-#include "Queue.h"
-#include "MediaParser.h"
+#include "State.h"
+#include "MediaInfo.h"
 
 class Demuxer : public QThread {
+Q_OBJECT
+
 public:
-    Demuxer(AVFormatContext *ctx, MediaInfo *info, Queue<AVPacket> *pktQueue);
+    explicit Demuxer(State *state);
 
     void run() override;
+
+public slots:
 
     void demux();
 
 private:
-    MediaInfo *mediaInfo;
-    AVFormatContext *fmtCtx;
+    State *state;
     AVPacket *pkt;
-    Queue<AVPacket> *pktQueue;
 };
 
 

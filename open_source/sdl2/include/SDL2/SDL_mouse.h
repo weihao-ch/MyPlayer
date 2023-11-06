@@ -421,7 +421,7 @@ extern DECLSPEC void SDLCALL SDL_FreeCursor(SDL_Cursor * cursor);
  * The current state of the mouse cursor can be queried by passing
  * `SDL_QUERY`; either `SDL_DISABLE` or `SDL_ENABLE` will be returned.
  *
- * \param toggle `SDL_ENABLE` to show the cursor, `SDL_DISABLE` to hide it,
+ * \param toggle `SDL_ENABLE` to showScreen the cursor, `SDL_DISABLE` to hide it,
  *               `SDL_QUERY` to query the current state without changing it.
  * \returns `SDL_ENABLE` if the cursor is shown, or `SDL_DISABLE` if the
  *          cursor is hidden, or a negative error code on failure; call

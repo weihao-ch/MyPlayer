@@ -3,33 +3,39 @@
 //
 
 #include "PlayController.h"
+#include "MainWindow.h"
 
-PlayController::PlayController(QObject *parent)
+PlayController::PlayController(QWidget *parent) : parent(parent)
 {
     mediaInfo = new MediaInfo();
-    fmtCtx = avformat_alloc_context();
-    pktQueue = new Queue<AVPacket>();
-    videoFrameQueue = new Queue<AVFrame>();
-    audioFrameQueue = new Queue<AVFrame>();
+    state = new State();
 
-    parser = new MediaParser(fmtCtx, mediaInfo, videoDecCtx, audioDecCtx);
-    demuxer = new Demuxer(fmtCtx, mediaInfo, pktQueue);
-    decoder = new Decoder(videoDecCtx,
-                          audioDecCtx, mediaInfo, pktQueue,
-                          videoFrameQueue, audioFrameQueue);
+    parser = new MediaParser(state, mediaInfo);
+    demuxer = new Demuxer(state);
+    decoder = new Decoder(state);
+    renderer = new Renderer(state);
+
+    initSlots();
 }
 
 PlayController::~PlayController()
 {
     delete mediaInfo;
-    mediaInfo = nullptr;
-    avformat_free_context(fmtCtx);
-    fmtCtx = nullptr;
+    delete parser;
+    delete demuxer;
+    delete decoder;
 }
 
 void PlayController::startPlay(const QString &filePath)
 {
     parser->parse(filePath);
-    demuxer->demux();
-    decoder->decode();
+}
+
+void PlayController::initSlots()
+{
+    connect(renderer, SIGNAL(show(AVFrame, uint32_t)),
+            dynamic_cast<MainWindow*>(parent), SLOT(showScreen(AVFrame, uint32_t)), Qt::DirectConnection);
+    connect(parser, SIGNAL(startThraed()), demuxer, SLOT(demux()));
+    connect(parser, SIGNAL(startThraed()),decoder , SLOT(decode()));
+    connect(parser, SIGNAL(startThraed()), renderer, SLOT(render()));
 }

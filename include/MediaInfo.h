@@ -14,26 +14,9 @@ public:
 
     void setDuration(const QTime &duration);
 
-    int getVideoIdx() const;
-
-    void setVideoIdx(int videoIdx);
-
-    int getAudioIdx() const;
-
-    void setAudioIdx(int audioIdx);
-
-    int getSubtitleIdx() const;
-
-    void setSubtitleIdx(int subtitleIdx);
-
 private:
     QString filePath;
     QTime duration;
-
-    int videoIdx;
-    int audioIdx;
-    int subtitleIdx;
-
 };
 
 

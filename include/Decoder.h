@@ -6,30 +6,24 @@
 #define MYPLAYER_DECODER_H
 
 #include <QThread>
-#include "Queue.h"
+#include "State.h"
 #include "MediaInfo.h"
 
-extern "C" {
-#include "libavcodec/avcodec.h"
-}
-
 class Decoder : public QThread {
+Q_OBJECT
+
 public:
-    explicit Decoder(AVCodecContext *vDecCtx, AVCodecContext *aDecCtx, MediaInfo *info,
-                     Queue<AVPacket> *pktQueue, Queue<AVFrame> *vFrameQueue, Queue<AVFrame> *aFrameQueue);
+    explicit Decoder(State *state);
 
     void run() override;
+
+public slots:
 
     void decode();
 
 private:
     AVFrame *frame;
-    MediaInfo *mediaInfo;
-    AVCodecContext *videoDecCtx;
-    AVCodecContext *audioDecCtx;
-    Queue<AVPacket> *pktQueue;
-    Queue<AVFrame> *videoFrameQueue;
-    Queue<AVFrame> *audioFrameQueue;
+    State *state;
 };
 
 

@@ -78,7 +78,7 @@ extern DECLSPEC SDL_Window * SDLCALL SDL_GetKeyboardFocus(void);
  *
  * This function gives you the current state after all events have been
  * processed, so if a key or button has been pressed and released before you
- * process events, then the pressed state will never show up in the
+ * process events, then the pressed state will never showScreen up in the
  * SDL_GetKeyboardState() calls.
  *
  * Note: This function doesn't take into account whether shift has been

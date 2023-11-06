@@ -226,7 +226,7 @@ typedef enum
     SDL_SCANCODE_F24 = 115,
     SDL_SCANCODE_EXECUTE = 116,
     SDL_SCANCODE_HELP = 117,    /**< AL Integrated Help Center */
-    SDL_SCANCODE_MENU = 118,    /**< Menu (show menu) */
+    SDL_SCANCODE_MENU = 118,    /**< Menu (showScreen menu) */
     SDL_SCANCODE_SELECT = 119,
     SDL_SCANCODE_STOP = 120,    /**< AC Stop */
     SDL_SCANCODE_AGAIN = 121,   /**< AC Redo/Repeat */
