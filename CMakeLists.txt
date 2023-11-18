@@ -23,7 +23,7 @@ include_directories(include
         open_source/ffmpeg/include
         open_source/sdl2/include
         ui
-        open_source/googletest/googletest/include
+#        open_source/googletest/googletest/include
         test/include)
 
 file(GLOB_RECURSE HEADER include/*.h)
@@ -33,7 +33,7 @@ file(GLOB_RECURSE TEST test/suite/*.cpp)
 link_directories(open_source/ffmpeg/lib
         open_source/sdl2/lib)
 
-add_subdirectory(open_source/googletest)
+#add_subdirectory(open_source/googletest)
 
 add_executable(${PROJECT_NAME} main.cpp ${LIB} ${HEADER} ui/MainWindow.ui ${TEST})
 
@@ -45,7 +45,7 @@ target_link_libraries(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} avcodec avdevice avfilter avformat avutil swresample swscale)
 target_link_libraries(${PROJECT_NAME} SDL2)
-target_link_libraries(${PROJECT_NAME} gtest)
+#target_link_libraries(${PROJECT_NAME} gtest)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

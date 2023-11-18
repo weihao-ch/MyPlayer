@@ -15,7 +15,8 @@ EventHandler::EventHandler(Ui::MainWindow *ui, QWidget *parent)
 void EventHandler::play()
 {
 //    const QString filePath = QFileDialog::getOpenFileName(parent, "open file", "D:/");
-    const QString filePath = "E:\\IDMDownload\\Video\\测试视频\\trailer.mp4";
+//    const QString filePath = "E:\\IDMDownload\\Video\\测试视频\\trailer.mp4";
+    const QString filePath = "C:\\Users\\liuweihao\\Downloads\\进击的巨人.Shingeki.no.Kyojin.S04E85.mp4";
     if (filePath.isEmpty()) {
         return;
     }

@@ -23,26 +23,30 @@ public:
 
     ~PlayGround() override;
 
-    void showScreen(AVFrame frame, uint32_t delay);
+    void showScreen(AVFrame *frame, uint32_t delay);
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
 private:
     void initSDL();
+    double getScreenFactor();
+    void createTexture();
 
 private:
-    SDL_Window *sdlWin;
-    SDL_Renderer *sdlRenderer;
-    SDL_Texture *sdlTexture;
     SwsContext *swsCtx;
 
     std::mutex mutex;
+
+    SDL_Window *sdlWin;
+    SDL_Renderer *sdlRenderer;
+    SDL_Texture *sdlTexture;
+    SDL_Rect sdlRect;
+    double frameRatio;
+    int renderW;
+    int renderH;
     int sdlWidth;
     int sdlHeight;
-
-    int frameWidth;
-    int frameHeight;
 };
 
 

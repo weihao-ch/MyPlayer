@@ -59,7 +59,7 @@ void MainWindow::initSlots()
 //    delete rgb;
 //}
 
-void MainWindow::showScreen(AVFrame frame, uint32_t delay)
+void MainWindow::showScreen(AVFrame *frame, uint32_t delay)
 {
     ui->playGround->showScreen(frame, delay);
 }

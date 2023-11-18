@@ -20,9 +20,9 @@ struct State {
     AVFormatContext *fmtCtx;
     AVCodecContext *videoDecCtx;
     AVCodecContext *audioDecCtx;
-    Queue<AVPacket> *pktQueue;
-    Queue<AVFrame> *videoFrameQueue;
-    Queue<AVFrame> *audioFrameQueue;
+    Queue<AVPacket*> *pktQueue;
+    Queue<AVFrame*> *videoFrameQueue;
+    Queue<AVFrame*> *audioFrameQueue;
 
     explicit State();
     ~State();

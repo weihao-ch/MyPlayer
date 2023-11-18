@@ -14,16 +14,16 @@ void Decoder::run()
 {
     while (true) {
         int rc = 0;
-        AVPacket pkt = state->pktQueue->pop();
-        int idx = pkt.stream_index;
+        AVPacket *pkt = state->pktQueue->pop();
+        int idx = pkt->stream_index;
 
         if (idx == state->videoIdx) {
-            rc = avcodec_send_packet(state->videoDecCtx, &pkt);
+            rc = avcodec_send_packet(state->videoDecCtx, pkt);
             while (rc >= 0) {
                 AVFrame *f = av_frame_alloc();
                 rc = avcodec_receive_frame(state->videoDecCtx, f);
                 if (!rc) {
-                    state->videoFrameQueue->push(*f);
+                    state->videoFrameQueue->push(f);
                 }
             }
         }
@@ -45,7 +45,8 @@ void Decoder::run()
 //            }
 //        }
 
-        av_packet_unref(&pkt);
+        av_packet_unref(pkt);
+        av_packet_free(&pkt);
     }
 }
 

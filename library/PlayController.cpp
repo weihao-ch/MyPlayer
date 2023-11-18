@@ -33,8 +33,8 @@ void PlayController::startPlay(const QString &filePath)
 
 void PlayController::initSlots()
 {
-    connect(renderer, SIGNAL(show(AVFrame, uint32_t)),
-            dynamic_cast<MainWindow*>(parent), SLOT(showScreen(AVFrame, uint32_t)), Qt::DirectConnection);
+    connect(renderer, SIGNAL(show(AVFrame *, uint32_t)),
+            dynamic_cast<MainWindow*>(parent), SLOT(showScreen(AVFrame *, uint32_t)), Qt::DirectConnection);
     connect(parser, SIGNAL(startThraed()), demuxer, SLOT(demux()));
     connect(parser, SIGNAL(startThraed()),decoder , SLOT(decode()));
     connect(parser, SIGNAL(startThraed()), renderer, SLOT(render()));

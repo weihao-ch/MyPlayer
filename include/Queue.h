@@ -13,7 +13,7 @@
 template<typename T, size_t size = 20>
 class Queue {
 public:
-    explicit Queue(std::function<void(T *)> unrefFunc = [](T *) {});
+    explicit Queue(std::function<void(T)> unrefFunc = [](T) {});
 
     ~Queue();
 
@@ -24,7 +24,7 @@ public:
     void clear();
 
 private:
-    std::function<void(T *)> unref;
+    std::function<void(T)> unref;
     std::queue<T> queue;
     std::mutex mutex;
     std::condition_variable empty;
@@ -32,10 +32,8 @@ private:
 };
 
 template<typename T, size_t size>
-Queue<T, size>::Queue(std::function<void(T *)> unrefFunc)
-{
-    unref = std::move(unrefFunc);
-}
+Queue<T, size>::Queue(std::function<void(T)> unrefFunc) : unref(unrefFunc)
+{}
 
 template<typename T, size_t size>
 Queue<T, size>::~Queue()
@@ -70,7 +68,7 @@ void Queue<T, size>::clear()
     while (!queue.empty()) {
         T data = queue.front();
         queue.pop();
-        unref(&data);
+        unref(data);
     }
 }
 

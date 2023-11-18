@@ -24,7 +24,7 @@ public slots:
 
 signals:
 
-    void show(AVFrame frame, uint32_t delay);
+    void show(AVFrame *frame, uint32_t delay);
 
 private:
     State *state;

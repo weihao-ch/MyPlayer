@@ -23,7 +23,7 @@ public slots:
 
 private:
     State *state;
-    AVPacket *pkt;
+//    AVPacket *pkt;
 };
 
 

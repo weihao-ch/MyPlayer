@@ -19,7 +19,7 @@ public:
     ~MainWindow() override;
 
 public slots:
-    void showScreen(AVFrame frame, uint32_t delay);
+    void showScreen(AVFrame *frame, uint32_t delay);
 
 private:
     void initSlots();

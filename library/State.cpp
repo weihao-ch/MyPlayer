@@ -10,13 +10,20 @@ State::State()
     audioIdx = -1;
     subtitleIdx = -1;
 
-    auto unrefPkt = [](AVPacket *pkt) { av_packet_unref(pkt); };
-    auto unrefFrame = [](AVFrame *frame) { av_frame_unref(frame); };
+    auto unrefPkt = [](AVPacket *pkt) {
+        av_packet_unref(pkt);
+        av_packet_free(&pkt);
+    };
+
+    auto unrefFrame = [](AVFrame *frame) {
+        av_frame_unref(frame);
+        av_frame_free(&frame);
+    };
 
     fmtCtx = avformat_alloc_context();
-    pktQueue = new Queue<AVPacket>(unrefPkt);
-    videoFrameQueue = new Queue<AVFrame>(unrefFrame);
-    audioFrameQueue = new Queue<AVFrame>(unrefFrame);
+    pktQueue = new Queue<AVPacket *>(unrefPkt);
+    videoFrameQueue = new Queue<AVFrame *>(unrefFrame);
+    audioFrameQueue = new Queue<AVFrame *>(unrefFrame);
     videoDecCtx = nullptr;
     audioDecCtx = nullptr;
 }
@@ -29,5 +36,5 @@ State::~State()
 
     delete pktQueue;
     delete videoFrameQueue;
-    delete audioDecCtx;
+    delete audioFrameQueue;
 }

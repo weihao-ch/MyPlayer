@@ -15,9 +15,9 @@ void Renderer::run()
 {
     while(true) {
 //        AVFrame audioFrame = state->audioFrameQueue->pop();
-        AVFrame videoFrame = state->videoFrameQueue->pop();
-        double pts = videoFrame.pts;
-        if (videoFrame.best_effort_timestamp == AV_NOPTS_VALUE) {
+        AVFrame *videoFrame = state->videoFrameQueue->pop();
+        double pts = videoFrame->pts;
+        if (videoFrame->best_effort_timestamp == AV_NOPTS_VALUE) {
             pts = 0;
         }
 
@@ -32,13 +32,16 @@ void Renderer::run()
 
         double delay = 0;
         delay = av_q2d(timeBase);
-        delay += videoFrame.repeat_pict * (delay * 0.5);
+        delay += videoFrame->repeat_pict * (delay * 0.5);
 
         videoClk += delay;
 
         emit show(videoFrame, delay * 1000);
 
-        av_frame_unref(&videoFrame);
+//        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+        av_frame_unref(videoFrame);
+        av_frame_free(&videoFrame);
     }
 }
 
